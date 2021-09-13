@@ -280,7 +280,8 @@ class XTSConnect(XTSCommon):
             response = self._get('user.profile', params)
             return response
         except Exception as e:
-            return response['description']
+            print(e)
+            # return response.get('description')
 
     def get_balance(self):
         """Get Balance API call grouped under this category information related to limits on equities, derivative,
@@ -712,7 +713,8 @@ class XTSConnect(XTSCommon):
             if data.get("type"):
 
                 if r.status_code == 400 and data["type"] == "error" and data["description"] == "Invalid Token":
-                    raise ex.XTSTokenException(data["description"])
+                    print(data)
+                    return data
 
                 if r.status_code == 400 and data["type"] == "error" and data["description"] == "Bad Request":
                     print(data)
